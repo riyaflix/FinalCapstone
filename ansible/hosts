@@ -1,0 +1,2 @@
+
+localhost ansible_host=localhost ansible_user=knoldus ansible_connection=local ansible_become_password=knoldus ansible_python_interpreter=/usr/bin/python3

@@ -1,0 +1,6 @@
+---
+- name: Configuring the repository
+  apt_repository:
+    filename: "{{ jenkins.name }}"
+    repo: "{{ jenkins.url }}"
+    state: present

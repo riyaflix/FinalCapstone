@@ -1,0 +1,6 @@
+---
+- name: Setting up Jenkins
+  hosts: localhost
+  become: true
+  roles:
+    - Jenkins

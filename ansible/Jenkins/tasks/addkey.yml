@@ -1,0 +1,5 @@
+---
+- name: Installing the jenkins apt repository key
+  apt_key:
+    url: "{{ jenkins_key }}"
+    state: present

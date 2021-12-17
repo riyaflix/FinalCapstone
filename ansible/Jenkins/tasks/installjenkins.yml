@@ -1,0 +1,11 @@
+---
+- name: Installing jenkins
+  apt:
+    name: jenkins
+    update_cache: yes
+    state: latest
+
+- name: Running jenkins
+  service:
+    name: jenkins
+    state: started

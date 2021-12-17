@@ -1,0 +1,8 @@
+---
+- import_tasks: installjava.yml
+
+- import_tasks: addkey.yml
+
+- import_tasks: addrepo.yml
+
+- import_tasks: installjenkins.yml
