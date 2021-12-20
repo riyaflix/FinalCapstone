@@ -70,9 +70,9 @@ pipeline
                         withKubeConfig([credentialsId: 'kubeconfig'])
                         {
                             sh 'pwd && ls'
-                            sh 'kubectl apply -f kubernetes/database/mongodb.yml'
-                            sh 'kubectl apply -f kubernetes/app/app.yml'
-                            sh 'kubectl apply -f kubernetes/app/nodeport.yml'
+                            sh 'kubectl apply -f minikube/mongodb.yml'
+                            sh 'kubectl apply -f minikube/app.yml'
+                            sh 'kubectl apply -f minikube/nodeport.yml'
                         }
                     }
                 }
