@@ -63,6 +63,19 @@ pipeline
                         }
                     }
                 }
+                stage("Deploying")
+                {
+                    steps
+                    {
+                        withKubeConfig([credentialsId: 'kubeconfig'])
+                        {
+                            sh 'pwd && ls'
+                            sh 'kubectl apply -f kubernetes/database/mongo.yml'
+                            sh 'kubectl apply -f kubernetes/app/app.yml'
+                            sh 'kubectl apply -f kubernetes/app/nodeport.yml'
+                        }
+                    }
+                }
             }
         }
     }
