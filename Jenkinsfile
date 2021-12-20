@@ -1,55 +1,70 @@
-pipeline{
+pipeline
+{
 
     agent any
 
-    options{
+    options
+    {
 
         buildDiscarder(logRotator(numToKeepStr: '5', daysToKeepStr: '5'))
         timestamps()
     }
 
-    environment{
+    environment
+    {
         
-        image_built=''
-        image_tag='riya/capstone:${GIT_COMMIT}-build-${BUILD_NUMBER}'
-        
+        dockerhubRepository = "riyaflix/notesapp"
+        dockerhubCredentials = 'DockerhubCredentials'
+        dockerImage = ''
     }
 
-    tools{
+    tools
+    {
 
         nodejs 'node'
-        jdk 'jdk'
+        jdk 'jdk11'
     }
 
-    stages{
+    stages
+    {
         
-        stage("Install NPM modules")
-        {
-            steps
-            {
-                sh 'npm install'
-            }
-        }
-
-        stage("Build")
-        {
-            steps
-            {
-                sh 'npm run-script build'
-                sh 'docker-compose up'
-            }
-        }
-
-        stage("Test")
+        stage("Building, Pushing and Deploying")
         {
             when
             {
-                branch 'Testing'   
+                branch 'main'
             }
-            steps
+            stages
             {
-                sh 'npm test'          
+                stage("Building Docker Image")
+                {
+                    steps
+                    {
+                        script
+                        {
+                            dockerImage = docker.build dockerhubRepository + ":$GIT_COMMIT-build-$BUILD_NUMBER"
+
+                        }
+                    }
+                }
+
+                stage("Pushing the Docker Image")
+                {
+                    steps
+                    {
+                        script
+                        {
+                            docker.withRegistry('', dockerhubCredentials)
+                            {
+                                dockerImage.push()
+                                dockerImage.push('latest')
+                                dockerImage.push('v1')
+                            }
+                        }
+                    }
+                }
             }
         }
-
-        
+    }
+}
+            
