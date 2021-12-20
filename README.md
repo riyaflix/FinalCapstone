@@ -49,8 +49,5 @@ This app was created with educational purposes, so you can found the tutorials i
 - [Version 1.0.0](https://youtu.be/-bI0diefasA)
 
 
-<<<<<<< HEAD
 #test2
 =======
-#test2
->>>>>>> d37dd137544db0294451172a0926f3149408da14
